@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 import Landing from "./Landing";
 import Questions from "./Questions";
 class App extends React.Component {
-  state = { showQuestions: false };
+  state = { showQuestions: false, highScore: 0, score: 0, questionSet: 0 };
 
   onPlay = () => {
     this.setState({ showQuestions: true });
@@ -11,7 +11,20 @@ class App extends React.Component {
 
   renderQuestions() {
     if (!this.state.showQuestions) return <Landing onClick={this.onPlay} />;
-    return <Questions />;
+    return (
+      <>
+        <Questions
+          key={this.state.questionSet}
+          onPlayAgain={() =>
+            this.setState({ questionSet: this.state.questionSet + 1 })
+          }
+          score={this.state.score}
+          onCorrect={() => {
+            this.setState({ score: this.state.score + 10 });
+          }}
+        />
+      </>
+    );
   }
 
   render() {

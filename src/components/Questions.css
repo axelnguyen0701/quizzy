@@ -1,0 +1,8 @@
+.show-answers {
+  background-color: rgb(254, 66, 116) !important ;
+  pointer-events: none;
+}
+
+.show-answers.correct-answer {
+  background-color: rgb(59, 210, 59) !important;
+}

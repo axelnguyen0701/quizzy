@@ -1,11 +1,17 @@
 import React from "react";
-import { Button } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import trivia from "../apis/trivia";
-
+import "./Questions.css";
 class Questions extends React.Component {
-  state = { answers: [], questions: [] };
+  state = {
+    answers: [],
+    questions: [],
+    correctAnswer: [],
+    currentQuestion: 0,
+    showAnswers: false,
+  };
 
-  async componentDidMount() {
+  fetchQuestions = async () => {
     try {
       const res = await trivia.get();
       const loadedQuestions = [...res.data.results];
@@ -14,6 +20,7 @@ class Questions extends React.Component {
 
       loadedQuestions.forEach((loadedQuestion, index) => {
         let correctAnswerIndex = Math.floor(Math.random() * 3) + 1;
+
         formattedQuestion[index] = loadedQuestion.question;
         formattedAnswers[index] = loadedQuestion.incorrect_answers;
         formattedAnswers[index].splice(
@@ -21,9 +28,14 @@ class Questions extends React.Component {
           0,
           loadedQuestion.correct_answer
         );
+        this.setState({
+          correctAnswer: [
+            ...this.state.correctAnswer,
+            formattedAnswers[index].indexOf(loadedQuestion.correct_answer),
+          ],
+        });
       });
 
-      console.log(formattedAnswers);
       this.setState({
         questions: formattedQuestion,
         answers: formattedAnswers,
@@ -31,17 +43,91 @@ class Questions extends React.Component {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  async componentDidMount() {
+    this.fetchQuestions();
   }
+
+  onAnswer = (e) => {
+    this.setState({ showAnswers: true });
+    if (
+      Number(e.target.value) ===
+      this.state.correctAnswer[this.state.currentQuestion]
+    ) {
+      this.props.onCorrect();
+    }
+  };
+
+  onNext = () => {
+    this.setState({
+      showAnswers: false,
+      currentQuestion: this.state.currentQuestion + 1,
+    });
+  };
+
+  renderAnswers = (index) => {
+    return this.state.answers[index].map((answer, answerIndex) => {
+      const className = `w-50 mt-2 py-3 text-white
+      ${this.state.showAnswers ? "show-answers" : ""}
+      ${
+        this.state.correctAnswer[index] === answerIndex ? "correct-answer" : ""
+      }`;
+      return (
+        <Button
+          key={answer}
+          value={answerIndex}
+          color="info"
+          className={className}
+          dangerouslySetInnerHTML={{ __html: answer }}
+          onClick={this.onAnswer}
+        ></Button>
+      );
+    });
+  };
 
   renderQuestions = () => {
     if (this.state.questions.length === 0) {
-      return <div>Loading...</div>;
+      return (
+        <div>
+          <Spinner color="primary"> </Spinner>
+        </div>
+      );
+    } else {
+      if (this.state.currentQuestion < this.state.questions.length) {
+        return (
+          <>
+            <h1
+              className="text-muted"
+              dangerouslySetInnerHTML={{
+                __html: this.state.questions[this.state.currentQuestion],
+              }}
+            ></h1>
+            {this.renderAnswers(this.state.currentQuestion)}
+            <Button className="mt-5 px-5" onClick={this.onNext}>
+              Next
+            </Button>
+          </>
+        );
+      }
+      return (
+        <>
+          <div>No more question!</div>
+          <Button onClick={() => this.props.onPlayAgain()} className="mt-5">
+            Next Set!
+          </Button>
+        </>
+      );
     }
-    return <h1>{this.state.questions[0]}</h1>;
   };
 
   render() {
-    return this.renderQuestions();
+    return (
+      <>
+        <h1>Score: {this.props.score}</h1>
+        {this.renderQuestions()}
+      </>
+    );
   }
 }
 
