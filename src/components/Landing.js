@@ -6,7 +6,7 @@ const Landing = (props) => {
       return props.categories.map(({ name, id }) => (
         <Col lg="4" className="mt-3" key={id}>
           <Button
-            color="success"
+            variant="success"
             className="w-75"
             onClick={() => props.onCategoryChosen(id)}
           >

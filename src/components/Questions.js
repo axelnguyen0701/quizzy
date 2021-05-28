@@ -92,7 +92,7 @@ class Questions extends React.Component {
         <Button
           key={answer}
           value={answerIndex}
-          color="info"
+          variant="info"
           className={className}
           dangerouslySetInnerHTML={{ __html: answer }}
           onClick={this.onAnswer}
