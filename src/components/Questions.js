@@ -11,9 +11,24 @@ class Questions extends React.Component {
     showAnswers: false,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (
+      state.currentQuestion >= state.questions.length &&
+      state.questions.length !== 0
+    ) {
+      props.onHigherScore();
+      props.onEndOfQuestions();
+    }
+    return null;
+  }
+
   fetchQuestions = async () => {
     try {
-      const res = await trivia.get();
+      const res = await trivia.get("", {
+        params: {
+          category: this.props.category,
+        },
+      });
       const loadedQuestions = [...res.data.results];
       const formattedQuestion = [];
       const formattedAnswers = [];
@@ -21,7 +36,6 @@ class Questions extends React.Component {
       loadedQuestions.forEach((loadedQuestion, index) => {
         let correctAnswerIndex = Math.floor(Math.random() * 4);
 
-        console.log(correctAnswerIndex);
         formattedQuestion[index] = loadedQuestion.question;
         formattedAnswers[index] = loadedQuestion.incorrect_answers;
         formattedAnswers[index].splice(
@@ -112,23 +126,16 @@ class Questions extends React.Component {
           </>
         );
       }
-      return (
-        <>
-          {this.props.score > this.props.highScore
-            ? this.props.onHigherScore()
-            : null}
-          <div>No more question!</div>
-          <h1>High Score: {this.props.highScore}</h1>
-          <Button onClick={() => this.props.onPlayAgain()} className="mt-5">
-            Next Set!
-          </Button>
-        </>
-      );
     }
   };
 
   render() {
-    return <>{this.renderQuestions()}</>;
+    return (
+      <>
+        <h1>High Score: {this.props.highScore}</h1>
+        {this.renderQuestions()}
+      </>
+    );
   }
 }
 
