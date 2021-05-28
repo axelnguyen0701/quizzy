@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Spinner } from "reactstrap";
+import { Button, Spinner, ProgressBar } from "react-bootstrap";
 import trivia from "../apis/trivia";
 import "./Questions.css";
 class Questions extends React.Component {
@@ -110,8 +110,14 @@ class Questions extends React.Component {
       );
     } else {
       if (this.state.currentQuestion < this.state.questions.length) {
+        const now =
+          (this.state.currentQuestion * 100) / this.state.questions.length;
+
         return (
           <>
+            <div className="w-100 mt-3">
+              <ProgressBar now={now} animated variant="warning" />
+            </div>
             <h1>Score: {this.props.score}</h1>
             <h1
               className="text-muted text-center"

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Container } from "reactstrap";
+import { Container } from "react-bootstrap";
 import Landing from "./Landing";
 import Questions from "./Questions";
 class App extends React.Component {
@@ -11,10 +11,15 @@ class App extends React.Component {
     questionSet: 0,
     categories: [],
     chosenCategory: 0,
+    congratulations: "",
   };
 
   onCategoryChosen = (userChoice) => {
-    this.setState({ showQuestions: true, chosenCategory: userChoice });
+    this.setState({
+      showQuestions: true,
+      chosenCategory: userChoice,
+      congratulations: "",
+    });
   };
 
   onEndOfQuestions = () => {
@@ -23,7 +28,11 @@ class App extends React.Component {
 
   onHigherScore = () => {
     if (this.state.score > this.state.highScore)
-      this.setState({ highScore: this.state.score, score: 0 });
+      this.setState({
+        highScore: this.state.score,
+        score: 0,
+        congratulations: "You created a new high score!",
+      });
   };
 
   renderQuestions() {
@@ -57,12 +66,27 @@ class App extends React.Component {
     this.setState({ categories: response.data.trivia_categories });
   }
 
+  renderCongrats() {
+    if (this.state.congratulations === "") {
+      return "";
+    }
+    return (
+      <h1
+        className="bg-info p-4 mb-2 text-white"
+        style={{ borderRadius: "50px" }}
+      >
+        {this.state.congratulations}
+      </h1>
+    );
+  }
+
   render() {
     return (
       <Container
         className="align-items-center d-flex flex-column landing justify-content-center"
         style={{ height: "100vh" }}
       >
+        {this.renderCongrats()}
         {this.renderQuestions()}
       </Container>
     );
