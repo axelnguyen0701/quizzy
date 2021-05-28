@@ -19,12 +19,13 @@ class Questions extends React.Component {
       const formattedAnswers = [];
 
       loadedQuestions.forEach((loadedQuestion, index) => {
-        let correctAnswerIndex = Math.floor(Math.random() * 3) + 1;
+        let correctAnswerIndex = Math.floor(Math.random() * 4);
 
+        console.log(correctAnswerIndex);
         formattedQuestion[index] = loadedQuestion.question;
         formattedAnswers[index] = loadedQuestion.incorrect_answers;
         formattedAnswers[index].splice(
-          correctAnswerIndex - 1,
+          correctAnswerIndex,
           0,
           loadedQuestion.correct_answer
         );
@@ -97,8 +98,9 @@ class Questions extends React.Component {
       if (this.state.currentQuestion < this.state.questions.length) {
         return (
           <>
+            <h1>Score: {this.props.score}</h1>
             <h1
-              className="text-muted"
+              className="text-muted text-center"
               dangerouslySetInnerHTML={{
                 __html: this.state.questions[this.state.currentQuestion],
               }}
@@ -112,7 +114,11 @@ class Questions extends React.Component {
       }
       return (
         <>
+          {this.props.score > this.props.highScore
+            ? this.props.onHigherScore()
+            : null}
           <div>No more question!</div>
+          <h1>High Score: {this.props.highScore}</h1>
           <Button onClick={() => this.props.onPlayAgain()} className="mt-5">
             Next Set!
           </Button>
@@ -122,12 +128,7 @@ class Questions extends React.Component {
   };
 
   render() {
-    return (
-      <>
-        <h1>Score: {this.props.score}</h1>
-        {this.renderQuestions()}
-      </>
-    );
+    return <>{this.renderQuestions()}</>;
   }
 }
 

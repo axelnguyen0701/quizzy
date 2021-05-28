@@ -9,16 +9,25 @@ class App extends React.Component {
     this.setState({ showQuestions: true });
   };
 
+  onPlayAgain = () => {
+    this.setState({ questionSet: this.state.questionSet + 1 });
+  };
+
+  onHigherScore = () => {
+    if (this.state.score > this.state.highScore)
+      this.setState({ highScore: this.state.score, score: 0 });
+  };
+
   renderQuestions() {
     if (!this.state.showQuestions) return <Landing onClick={this.onPlay} />;
     return (
       <>
         <Questions
           key={this.state.questionSet}
-          onPlayAgain={() =>
-            this.setState({ questionSet: this.state.questionSet + 1 })
-          }
+          onPlayAgain={this.onPlayAgain}
           score={this.state.score}
+          highScore={this.state.highScore}
+          onHigherScore={this.onHigherScore}
           onCorrect={() => {
             this.setState({ score: this.state.score + 10 });
           }}
