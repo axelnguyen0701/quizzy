@@ -1,7 +1,9 @@
 import React from "react";
-import { Button, Spinner, ProgressBar } from "react-bootstrap";
+import { Button, Spinner, ProgressBar, Row, Col } from "react-bootstrap";
 import trivia from "../apis/trivia";
 import "./Questions.css";
+import Timer from "./Timer";
+
 class Questions extends React.Component {
   state = {
     answers: [],
@@ -130,9 +132,17 @@ class Questions extends React.Component {
               }}
             ></h1>
             {this.renderAnswers(this.state.currentQuestion)}
-            <Button className="mt-5 px-5" onClick={this.onNext}>
-              Next
-            </Button>
+
+            <Row className="w-50 mt-3 text-center align-items-center">
+              <Col lg="6">
+                <Timer onTimeOut={this.onNext} />
+              </Col>
+              <Col lg="6">
+                <Button className="px-5" onClick={this.onNext}>
+                  Next
+                </Button>
+              </Col>
+            </Row>
           </>
         );
       }
