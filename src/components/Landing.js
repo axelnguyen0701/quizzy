@@ -20,7 +20,7 @@ const Landing = (props) => {
     <>
       <h1 className="text-muted">Quick Quiz!</h1>
       <h2>High Score: {props.highScore}</h2>
-      <Row>{renderCategories()}</Row>
+      <Row className="text-center">{renderCategories()}</Row>
     </>
   );
 };

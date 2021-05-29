@@ -7,7 +7,6 @@ class App extends React.Component {
   state = {
     showQuestions: false,
     highScore: 0,
-    score: 0,
     questionSet: 0,
     categories: [],
     chosenCategory: 0,
@@ -26,11 +25,10 @@ class App extends React.Component {
     this.setState({ showQuestions: false });
   };
 
-  onHigherScore = () => {
-    if (this.state.score > this.state.highScore)
+  onHigherScore = (score) => {
+    if (score > this.state.highScore)
       this.setState({
-        highScore: this.state.score,
-        score: 0,
+        highScore: score,
         congratulations: "You created a new high score!",
       });
   };
@@ -50,12 +48,8 @@ class App extends React.Component {
           category={this.state.chosenCategory}
           key={this.state.questionSet}
           onEndOfQuestions={this.onEndOfQuestions}
-          score={this.state.score}
           highScore={this.state.highScore}
-          onHigherScore={this.onHigherScore}
-          onCorrect={() => {
-            this.setState({ score: this.state.score + 10 });
-          }}
+          onHigherScore={(score) => this.onHigherScore(score)}
         />
       </>
     );

@@ -9,6 +9,7 @@ class Questions extends React.Component {
     correctAnswer: [],
     currentQuestion: 0,
     showAnswers: false,
+    score: 0,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -16,8 +17,11 @@ class Questions extends React.Component {
       state.currentQuestion >= state.questions.length &&
       state.questions.length !== 0
     ) {
-      props.onHigherScore();
+      if (state.score > props.highScore) {
+        props.onHigherScore(state.score);
+      }
       props.onEndOfQuestions();
+      return { score: 0 };
     }
     return null;
   }
@@ -70,7 +74,7 @@ class Questions extends React.Component {
       Number(e.target.value) ===
       this.state.correctAnswer[this.state.currentQuestion]
     ) {
-      this.props.onCorrect();
+      this.setState({ score: this.state.score + 10 });
     }
   };
 
@@ -118,7 +122,7 @@ class Questions extends React.Component {
             <div className="w-100 mt-3">
               <ProgressBar now={now} animated variant="warning" />
             </div>
-            <h1>Score: {this.props.score}</h1>
+            <h1>Score: {this.state.score}</h1>
             <h1
               className="text-muted text-center"
               dangerouslySetInnerHTML={{
