@@ -80,7 +80,7 @@ class Questions extends React.Component {
     }
   };
 
-  onNext = () => {
+  onTimeOut = () => {
     this.setState({
       showAnswers: false,
       currentQuestion: this.state.currentQuestion + 1,
@@ -135,10 +135,10 @@ class Questions extends React.Component {
 
             <Row className="w-50 mt-3 text-center align-items-center">
               <Col lg="6">
-                <Timer onTimeOut={this.onNext} />
+                <Timer onTimeOut={this.onTimeOut} />
               </Col>
               <Col lg="6">
-                <Button className="px-5" onClick={this.onNext}>
+                <Button className="px-5" onClick={this.onTimeOut}>
                   Next
                 </Button>
               </Col>
