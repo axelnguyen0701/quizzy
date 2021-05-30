@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/components/Questions.css"],"names":[],"mappings":"AAAA,cACE,kCAA+C,CAC/C,mBACF,CAEA,6BACE,kCACF","file":"main.2d36d4ac.chunk.css","sourcesContent":[".show-answers {\n  background-color: rgb(254, 66, 116) !important ;\n  pointer-events: none;\n}\n\n.show-answers.correct-answer {\n  background-color: rgb(59, 210, 59) !important;\n}\n"]}

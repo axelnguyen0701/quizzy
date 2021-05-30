@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/quizzy/static/css/main.2d36d4ac.chunk.css",
-    "main.js": "/quizzy/static/js/main.095a73ae.chunk.js",
-    "main.js.map": "/quizzy/static/js/main.095a73ae.chunk.js.map",
+    "main.css": "/quizzy/static/css/main.62affc4c.chunk.css",
+    "main.js": "/quizzy/static/js/main.ec3329e7.chunk.js",
+    "main.js.map": "/quizzy/static/js/main.ec3329e7.chunk.js.map",
     "runtime-main.js": "/quizzy/static/js/runtime-main.e5056b1e.js",
     "runtime-main.js.map": "/quizzy/static/js/runtime-main.e5056b1e.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/quizzy/static/css/2.4c97ca4f.chunk.css",
@@ -10,14 +10,14 @@
     "static/js/2.5fc55af1.chunk.js.map": "/quizzy/static/js/2.5fc55af1.chunk.js.map",
     "index.html": "/quizzy/index.html",
     "static/css/2.4c97ca4f.chunk.css.map": "/quizzy/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.2d36d4ac.chunk.css.map": "/quizzy/static/css/main.2d36d4ac.chunk.css.map",
+    "static/css/main.62affc4c.chunk.css.map": "/quizzy/static/css/main.62affc4c.chunk.css.map",
     "static/js/2.5fc55af1.chunk.js.LICENSE.txt": "/quizzy/static/js/2.5fc55af1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e5056b1e.js",
     "static/css/2.4c97ca4f.chunk.css",
     "static/js/2.5fc55af1.chunk.js",
-    "static/css/main.2d36d4ac.chunk.css",
-    "static/js/main.095a73ae.chunk.js"
+    "static/css/main.62affc4c.chunk.css",
+    "static/js/main.ec3329e7.chunk.js"
   ]
 }
