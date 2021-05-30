@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 const Timer = (props) => {
-  const [seconds, setSeconds] = useState(30);
+  const [seconds, setSeconds] = useState(20);
 
   function updateTime() {
     if (seconds === 0) {
       //reset
       props.onTimeOut();
-      setSeconds(30);
+      setSeconds(20);
     } else {
       setSeconds((seconds) => seconds - 1);
     }

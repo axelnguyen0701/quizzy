@@ -1,8 +1,16 @@
 .show-answers {
-  background-color: rgb(254, 66, 116) !important ;
+  background-color: rgb(235, 167, 131) !important ;
   pointer-events: none;
 }
 
+.show-answers.user-choice {
+  background-color: rgb(223, 89, 89) !important;
+}
+
+.show-answers.user-choice.show-answers.correct-answer {
+  background-color: rgb(79, 216, 122) !important;
+}
+
 .show-answers.correct-answer {
-  background-color: rgb(59, 210, 59) !important;
+  background-color: rgb(79, 216, 122) !important;
 }

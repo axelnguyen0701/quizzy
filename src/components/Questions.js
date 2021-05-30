@@ -13,6 +13,7 @@ class Questions extends React.Component {
     showAnswers: false,
     score: 0,
     timerKey: 0,
+    userChoice: 5,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -72,7 +73,7 @@ class Questions extends React.Component {
   }
 
   onAnswer = (e) => {
-    this.setState({ showAnswers: true });
+    this.setState({ showAnswers: true, userChoice: Number(e.target.value) });
     if (
       Number(e.target.value) ===
       this.state.correctAnswer[this.state.currentQuestion]
@@ -98,11 +99,18 @@ class Questions extends React.Component {
 
   renderAnswers = (index) => {
     return this.state.answers[index].map((answer, answerIndex) => {
-      const className = `w-50 mt-2 py-3 text-white
-      ${this.state.showAnswers ? "show-answers" : ""}
-      ${
-        this.state.correctAnswer[index] === answerIndex ? "correct-answer" : ""
-      }`;
+      let className = "w-50 mt-2 py-3 text-dark";
+      if (this.state.showAnswers) {
+        if (this.state.correctAnswer[index] === answerIndex) {
+          className += " correct-answer";
+        }
+        if (this.state.userChoice === answerIndex) {
+          className += " user-choice";
+        }
+
+        className += " show-answers";
+      }
+
       return (
         <Button
           key={answer}
@@ -117,6 +125,7 @@ class Questions extends React.Component {
   };
 
   renderQuestions = () => {
+    //API not responded yet
     if (this.state.questions.length === 0) {
       return (
         <div>
@@ -127,7 +136,6 @@ class Questions extends React.Component {
       if (this.state.currentQuestion < this.state.questions.length) {
         const now =
           (this.state.currentQuestion * 100) / this.state.questions.length;
-
         return (
           <>
             <div className="w-100 mt-3">
